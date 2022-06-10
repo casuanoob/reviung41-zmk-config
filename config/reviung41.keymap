@@ -63,7 +63,7 @@
 //                         | RPT | SHFT| SPC | SHFT | CAPW|
                         bindings = <
    &kp TAB   &kp Q &kp W &kp F &kp P &kp B       &kp J &kp L  &kp U     &kp Y   &kp UNDER &kp BSPC
-   &&mo NAV  &kp A &kp R &kp S &kp T &kp G       &kp M &kp N  &kp E     &kp I   &kp O     &mo SYM
+   &mo NAV  &kp A &kp R &kp S &kp T &kp G       &kp M &kp N  &kp E     &kp I   &kp O     &mo SYM
    &kp LSHFT &kp Z &kp X &kp C &kp D &kp V       &kp K &kp H  &kp COMMA &kp DOT &kp APOS &mt RSHFT RET
                   &key_repeat  &sk LSHFT  &kp SPACE  &sk RSHFT  &caps_word
       >;
