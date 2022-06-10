@@ -52,24 +52,24 @@
           bindings = <&sk LSHIFT>, <&caps_word>;
       };
   };
-        keymap {
-                compatible = "zmk,keymap";
+  keymap {
+    compatible = "zmk,keymap";
 
-                default_layer {
+    default_layer {
 // -------------------------------------------------------------------------------------
 // |  TAB |  Q  |  W  |  F  |  P  |  B  |    |  J  |  L   |  U  |  Y  |  _  |   BKSP   |
 // |  NAV |  A  |  R  |  S  |  T  |  G  |    |  M  |  N   |  E  |  I  |  O  |   SYM    |
 // | SHFT |  Z  |  X  |  C  |  D  |  V  |    |  K  |  H   |  ,  |  .  |  '  | SHFT(RET)|
-//                         | ALT | NAV | SPC | SYM  | ALT |
+//                         | RPT | SHFT| SPC | SHFT | CAPW|
                         bindings = <
    &kp TAB   &kp Q &kp W &kp F &kp P &kp B       &kp J &kp L  &kp U     &kp Y   &kp UNDER &kp BSPC
    &&mo NAV  &kp A &kp R &kp S &kp T &kp G       &kp M &kp N  &kp E     &kp I   &kp O     &mo SYM
    &kp LSHFT &kp Z &kp X &kp C &kp D &kp V       &kp K &kp H  &kp COMMA &kp DOT &kp APOS &mt RSHFT RET
-                    &kp LALT  &kp LSHFT  &kp SPACE  &kp RSHFT  &kp RALT
-                        >;
-                };
+                  &key_repeat  &sk LSHFT  &kp SPACE  &sk RSHFT  &caps_word
+      >;
+    };
 
-                nav_layer {
+    nav_layer {
 // ----------------------------------------------------------------------------------
 // | SPEC |     | pTAB| TAB | nTAB|      |    | CAPS| HOME|  UP | END | DEL  |      |
 // |      | LGUI| LALT|LCTRL|LSHFT|      |    | BKSP| LFT | DWN | RGT |ENTER | PGUP |
@@ -79,11 +79,11 @@
    &sl SPEC   &none      &kp C_S_TAB  &kp TAB    &kp CTRL_TAB &none           &kp CAPS  &kp HOME  &kp UP     &kp END    &kp DEL    &none
    &trans     &sk LGUI   &sk LALT     &sk LCTRL  &sk LSHIFT   &none           &kp BSPC  &kp LEFT  &kp DOWN   &kp RIGHT  &kp ENTER  &kp PG_UP
    &kp S_PRV  &kp S_NXT  &kp LG(X)    &kp LG(C)  &kp LG(V)    &kp LAUNCHER    &none     &none     &none      &none      &none      &kp PG_DN
-                                          &trans      &trans       &kp RET        &mo SYM       &trans
-                        >;
-                };
+                                          &trans      &trans       &trans        &trans       &trans
+      >;
+    };
 
-                symbols_layer {
+    symbols_layer {
 // -----------------------------------------------------------------------------------------
 // |    |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | DEL |
 // |    |  -  |  =  |  [  |  ]  |  \  |   | F1  | F2  | F3  | F4  | F5  | F6  |
@@ -97,7 +97,7 @@
                         >;
                 };
 
-                symbols_layer {
+    numbers_layer {
 // -----------------------------------------------------------------------------------------
 // |    |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | DEL |
 // |    |  -  |  =  |  [  |  ]  |  \  |   | F1  | F2  | F3  | F4  | F5  | F6  |
@@ -108,9 +108,10 @@
    &trans &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT  &kp BSLH      &kp F1    &kp F2    &kp F3    &kp F4    &kp F5    &kp F6
    &trans &kp ESC   &kp LGUI  &kp RALT  &kp CLCK  &kp DQT       &kp F7    &kp F8    &kp F9    &kp F10   &kp F11   &kp F12
                                 &trans      &mo 3       &kp BSPC        &trans      &trans
-                        >;
-                };
-                numbers_layer {
+      >;
+    };
+
+    function_layer {
 // -----------------------------------------------------------------------------------------
 // | RGB BRI+ | RGB SAT+ | RGB HUE+ | RGB ANI+ |    | RGB TOG |   |  BT1  | BT2 | BT3 | BT4 | BT5 | BT CLR |
 // | RGB BRI- | RGB SAT- | RGB HUE- | RGB ANI- |    |         |   |       |     |     |     |     |        |
@@ -121,7 +122,35 @@
    &rgb_ug RGB_BRD &rgb_ug RGB_SAD &rgb_ug RGB_HUD &rgb_ug RGB_EFR &none &none              &none        &none        &none        &none        &none        &none
    &none           &none           &none           &none           &none &none              &reset       &none        &none        &none        &none        &none
                                                              &trans      &trans       &tog 3        &trans      &trans
-                        >;
-                };
-        };
+      >;
+    };
+
+    special_layer {
+// -----------------------------------------------------------------------------------------
+// | RGB BRI+ | RGB SAT+ | RGB HUE+ | RGB ANI+ |    | RGB TOG |   |  BT1  | BT2 | BT3 | BT4 | BT5 | BT CLR |
+// | RGB BRI- | RGB SAT- | RGB HUE- | RGB ANI- |    |         |   |       |     |     |     |     |        |
+// |          |          |          |          |    |         |   | RESET |     |     |     |     |        |
+//                                              |     |     |     |     |     |
+                        bindings = <
+   &rgb_ug RGB_BRI &rgb_ug RGB_SAI &rgb_ug RGB_HUI &rgb_ug RGB_EFF &none &rgb_ug RGB_TOG    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_CLR
+   &rgb_ug RGB_BRD &rgb_ug RGB_SAD &rgb_ug RGB_HUD &rgb_ug RGB_EFR &none &none              &none        &none        &none        &none        &none        &none
+   &none           &none           &none           &none           &none &none              &reset       &none        &none        &none        &none        &none
+                                                             &trans      &trans       &tog 3        &trans      &trans
+      >;
+    };    
+
+    adjust_layer {
+// -----------------------------------------------------------------------------------------
+// | RGB BRI+ | RGB SAT+ | RGB HUE+ | RGB ANI+ |    | RGB TOG |   |  BT1  | BT2 | BT3 | BT4 | BT5 | BT CLR |
+// | RGB BRI- | RGB SAT- | RGB HUE- | RGB ANI- |    |         |   |       |     |     |     |     |        |
+// |          |          |          |          |    |         |   | RESET |     |     |     |     |        |
+//                                              |     |     |     |     |     |
+                        bindings = <
+   &rgb_ug RGB_BRI &rgb_ug RGB_SAI &rgb_ug RGB_HUI &rgb_ug RGB_EFF &none &rgb_ug RGB_TOG    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_CLR
+   &rgb_ug RGB_BRD &rgb_ug RGB_SAD &rgb_ug RGB_HUD &rgb_ug RGB_EFR &none &none              &none        &none        &none        &none        &none        &none
+   &none           &none           &none           &none           &none &none              &reset       &none        &none        &none        &none        &none
+                                                             &trans      &trans       &tog 3        &trans      &trans
+      >;
+    };
+  };
 };
